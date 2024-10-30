@@ -51,7 +51,7 @@ CUDA_VISIBLE_DEVICES=0 python inference.py \
 
 ## To-do list
 - [x] add base training code
-- [ ] add requirements.txt
+- [x] add requirements.txt
 - [ ] upload pre-trained checkpoint for independent_cfm_adaptive
 - [ ] upload pre-trained checkpoint for basic_cfm
 - [ ] optimize the training speed
