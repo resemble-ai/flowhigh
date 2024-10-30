@@ -33,7 +33,7 @@ CUDA_VISIBLE_DEVICES=0 python train.py
 ```
 CUDA_VISIBLE_DEVICES=0 python inference.py \
     --input_path {downsampled_audio_path} --output_path {save_output_audio_path} \
-    --target_sampling_rate '48000' --up_sampling_method scipy --architecture='transformer' \
+    --target_sampling_rate 48000 --up_sampling_method scipy --architecture='transformer' \
     --time_step 1 --ode_method='euler' --cfm_method='independent_cfm_adaptive' --sigma 0.0001 \
     --model_path {model_checkpoint_path} \
     --n_layers 2 --n_heads 16 --dim_head 64 \
