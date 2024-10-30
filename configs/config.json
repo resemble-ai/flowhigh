@@ -1,0 +1,45 @@
+{
+    "random_seed": 104,
+    "data": {
+      "data_path": "The/path/to/train/directory/path",
+      "valid_path": "The/path/to/test/directory/path",
+      "valid_prepare": true,
+      "samplingrate": 48000,
+      "max_wav_value": 32767.0,
+      "n_fft": 2048,
+      "hop_length": 480,
+      "win_length": 2048,
+      "n_mel_channels": 256,
+      "mel_fmin": 20,
+      "mel_fmax": 24000,
+      "downsample_min": 4000,
+      "downsample_max": 32000,
+      "downsampling_method": "scipy"
+    },
+    "model": {
+      "modelname": "FLowHigh",
+      "architecture": "transformer",
+      "dim": 1024,
+      "n_layers": 2,
+      "n_heads": 16,
+      "dim_head":64,
+      "cfm_path": "independent_cfm_adaptive",
+      "sigma":1e-4,
+      "vocoder": "bigvgan",
+      "vocoderpath": "/<Path>/vocoder/BIGVGAN/checkpoint/g_48_00850000",
+      "vocoderconfigpath": "/<Path>/vocoder/BIGVGAN/config/bigvgan_48khz_256band_config.json"
+    },
+    "train": {
+      "random_split_seed": 53,
+      "batchsize": 128,
+      "lr": 3e-4,
+      "initial_lr": 1e-5,
+      "n_train_steps": 400001,
+      "n_warmup_steps": 0,
+      "log_every": 10000,
+      "save_results_every": 10000,
+      "save_model_every": 100000,
+      "save_dir": "The/path/to/save/FLowHigh/",
+      "weighted_loss": false
+    }
+  }
