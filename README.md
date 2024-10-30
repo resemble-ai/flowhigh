@@ -49,6 +49,13 @@ CUDA_VISIBLE_DEVICES=0 python inference.py \
 | --cfm_method       | Sets the Conditional Probability Paths. <br>In our paper, we used the path `independent_cfm_adaptive`. <br>Other available options include `basic_cfm`(<https://arxiv.org/abs/2210.02747>) and `independent_cfm_constant`(<https://arxiv.org/abs/2302.00482>).|
 | --sigma  | Influences the path setting. <br>Ensure you use the same value for `sigma` as was used during training. |
 
+## To-do list
+- [x] add base training code
+- [ ] add requirements.txt
+- [ ] upload pre-trained checkpoint for independent_cfm_adaptive
+- [ ] upload pre-trained checkpoint for basic_cfm
+- [ ] optimize the training speed
+
 ## References
 This implementation was developed based on the following repository:
 * Voicebox: <https://github.com/lucidrains/voicebox-pytorch.git> (for architecture backbone)
