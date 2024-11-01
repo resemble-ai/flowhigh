@@ -13,7 +13,7 @@ from torch.utils.data import Dataset, random_split, Subset
 
 
 from cfm_superresolution import ConditionalFlowMatcherWrapper
-from eval import STFTMag, calculate_lsd_valid
+from utils import STFTMag
 from data import get_dataloader
 from optimizer import get_optimizer
 
