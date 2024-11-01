@@ -59,7 +59,7 @@ CUDA_VISIBLE_DEVICES=0 python inference.py \
 
 ## References
 This implementation was developed based on the following repository:
-* Voicebox: <https://github.com/lucidrains/voicebox-pytorch.git> (for architecture backbone)
+* Voicebox(unofficial pytorch implementation): <https://github.com/lucidrains/voicebox-pytorch.git> (for architecture backbone)
 * Fre-painter: <https://github.com/FrePainter/code.git> (for audio super-resolution implementation)
 * TorchCFM: <https://github.com/atong01/conditional-flow-matching.git> (for CFM logic)
 * BigVGAN: <https://github.com/NVIDIA/BigVGAN.git> (for pre-trained vocoder)
