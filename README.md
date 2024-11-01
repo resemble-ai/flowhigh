@@ -23,9 +23,16 @@ pip install -r requirements.txt
 * Update the `data_path` in the `configs/config.json` file with the path to your newly created `train` directory.
 
 ## Training
+* To adjust the training conditions, modify the `configs/config.json` file according to your preferences.
 ```
 CUDA_VISIBLE_DEVICES=0 python train.py 
 ```
+
+## Pre-trained checkpoints
+[FLowHigh_indep_400k](https://drive.google.com/drive/folders/1clsJ3bFTZSCLOb4I0wk0l6FL9Yh33Vof?usp=sharing) : This is the main model from our paper, an audio super-resolution model designed to reconstruct low-resolution audio into high-resolution audio at 48 kHz.
+[FLowHigh_basic_400k](https://drive.google.com/drive/folders/1IxOhrPiDt3eM6aLhiZ1x9Cu49TaRxu-W?usp=sharing) : This model adopts [Basic Flow-matching](https://arxiv.org/abs/2210.02747) and is also an audio super-resolution model that reconstructs low-resolution audio into high-resolution audio at 48 kHz.
+
+
 
 ## Inference of audio
 * Prepare the checkpoint of the trained model.
@@ -53,8 +60,8 @@ CUDA_VISIBLE_DEVICES=0 python inference.py \
 ## To-do list
 - [x] add base training code
 - [x] add requirements.txt
-- [ ] upload pre-trained checkpoint for independent_cfm_adaptive
-- [ ] upload pre-trained checkpoint for basic_cfm
+- [x] upload pre-trained checkpoint for independent_cfm_adaptive
+- [x] upload pre-trained checkpoint for basic_cfm
 - [ ] optimize the training speed
 
 ## References
