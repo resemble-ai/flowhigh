@@ -29,7 +29,7 @@ CUDA_VISIBLE_DEVICES=0 python train.py
 ```
 
 ## Pre-trained checkpoints
-[FLowHigh_indep_400k](https://drive.google.com/drive/folders/1clsJ3bFTZSCLOb4I0wk0l6FL9Yh33Vof?usp=sharing) : This is the main model from our paper, an audio super-resolution model designed to reconstruct low-resolution audio into high-resolution audio at 48 kHz.<br>
+[FLowHigh_indep_400k](https://drive.google.com/drive/folders/1clsJ3bFTZSCLOb4I0wk0l6FL9Yh33Vof?usp=sharing) : This is the main model from our paper, an audio super-resolution model designed to reconstruct low-resolution audio into high-resolution audio at 48 kHz.<br><br>
 [FLowHigh_basic_400k](https://drive.google.com/drive/folders/1IxOhrPiDt3eM6aLhiZ1x9Cu49TaRxu-W?usp=sharing) : This model adopts [Basic Flow-matching](https://arxiv.org/abs/2210.02747) and is also an audio super-resolution model that reconstructs low-resolution audio into high-resolution audio at 48 kHz.
 
 
