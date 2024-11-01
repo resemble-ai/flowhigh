@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 import librosa
 import torch
 import torch.nn as nn
-from eval import STFTMag 
 
 def plot_tensor(tensor):
     plt.style.use('default')
@@ -73,8 +72,35 @@ def save_stft_plot(audio, savepath):
     return
     
 
+
 def sequence_mask(length, max_length=None):
     if max_length is None:
         max_length = length.max()
     x = torch.arange(int(max_length), dtype=length.dtype, device=length.device)
     return x.unsqueeze(0) < length.unsqueeze(1)
+
+
+class STFTMag(nn.Module):
+    def __init__(self,
+                 nfft=2048,
+                 hop=300,
+                 window_len = 1200):
+        super().__init__()
+        self.nfft = nfft
+        self.hop = hop
+        # self.register_buffer('window', torch.hann_window(window_len), False)
+        self.window_length = window_len
+        self.window = torch.hann_window(window_len).cuda()
+
+    #x: [B,T] or [T]
+    @torch.no_grad()
+    def forward(self, x):
+        stft = torch.stft(x,
+                          self.nfft,
+                          self.hop,
+                          window=self.window,
+                          win_length=self.window_length,
+                          return_complex=False
+                          )#return_complex=False)  #[B, F, TT,2]
+        mag = torch.norm(stft, p=2, dim =-1) #[B, F, TT]
+        return mag
