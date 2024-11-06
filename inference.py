@@ -63,7 +63,7 @@ def super_resolution(input_path, output_dir, target_sampling_rate, upsampling_me
                 HR_audio = cfm_wrapper.sample(cond = cond, time_steps = timestep, cfm_method = cfm_method, std_2 = 1.) 
             elif cfm_method == 'independent_cfm_constant':
                 HR_audio = cfm_wrapper.sample(cond = cond, time_steps = timestep, cfm_method = cfm_method)
-            elif cfm_method == 'independent_cfm_mask':
+            elif cfm_method == 'independent_cfm_mix':
                 HR_audio = cfm_wrapper.sample(cond = cond, time_steps = timestep, cfm_method = cfm_method) 
 
             HR_audio = HR_audio.squeeze(1) # [1, T]
@@ -84,7 +84,7 @@ if __name__ == '__main__':
     parser.add_argument('--up_sampling_method', type=str, required=True, choices=['torchaudio','librosa','scipy'], help = 'upsamplingmethod')
     parser.add_argument('--architecture', type=str, required=True, choices=['transformer','convnext'], help = 'architecture')
     parser.add_argument('--time_step', type=int, required=False, default=4, help='number of timesteps for Solving ODE')
-    parser.add_argument('--cfm_method', type=str, required=True, choices=['basic_cfm','independent_cfm_adaptive','independent_cfm_constant','independent_cfm_mask'], help = 'method of cfm')
+    parser.add_argument('--cfm_method', type=str, required=True, choices=['basic_cfm','independent_cfm_adaptive','independent_cfm_constant','independent_cfm_mix'], help = 'method of cfm')
     parser.add_argument('--ode_method', type=str, required=True, choices=['euler','midpoint'], help = 'method of solving ODE')
     parser.add_argument('--sigma', type=float, required=False, default=1e-4, help='standard deviation')     
     parser.add_argument('--model_path', type=str, required=True, help="path of pre-trained checkpoint of model")

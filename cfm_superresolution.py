@@ -608,11 +608,11 @@ class ConditionalFlowMatcherWrapper(Module):
         mel_pp = False,
         cfm_method = None 
     ):
-        if cfm_method not in ['basic_cfm','independent_cfm_adaptive', 'independent_cfm_constant', 'independent_cfm_mask']:
+        if cfm_method not in ['basic_cfm','independent_cfm_adaptive', 'independent_cfm_constant', 'independent_cfm_mix']:
             cfm_method = self.cfm_method
             # raise ValueError("Do not define cfm_method variable for sample()")
             
-        if cfm_method in ['independent_cfm_adaptive', 'independent_cfm_constant','independent_cfm_mask']:
+        if cfm_method in ['independent_cfm_adaptive', 'independent_cfm_constant','independent_cfm_mix']:
             if std_1 is None or std_2 is None:
                 std_1 = 1.0
                 std_2 = self.sigma
@@ -664,7 +664,7 @@ class ConditionalFlowMatcherWrapper(Module):
             epsilon = torch.randn_like(cond).cuda()
             y0 = cond*std_1 + epsilon*std_2
     
-        elif cfm_method == 'independent_cfm_mask':
+        elif cfm_method == 'independent_cfm_mix':
             # y0 from intended prior
             epsilon = torch.randn_like(cond).cuda()
             y0_low = cond*std_1 + epsilon*std_2
@@ -733,7 +733,7 @@ class ConditionalFlowMatcherWrapper(Module):
         cfm_method = None # not necessary
     ):
         
-        if cfm_method not in ['basic_cfm','independent_cfm_adaptive' ,'independent_cfm_constant','independent_cfm_mask']:
+        if cfm_method not in ['basic_cfm','independent_cfm_adaptive' ,'independent_cfm_constant','independent_cfm_mix']:
             cfm_method = self.cfm_method
         
         batch, seq_len, dtype, sigma_min = *x1.shape[:2], x1.dtype, self.sigma
