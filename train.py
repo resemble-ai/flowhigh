@@ -80,7 +80,7 @@ if __name__ == "__main__":
                               dataset= dataset,
                               validset= validset,
                               num_train_steps= hparams.train.n_train_steps,
-                              num_warmup_steps= hparams.train.n_train_steps,
+                              num_warmup_steps= hparams.train.n_warmup_steps,
                               num_epochs=None,
                               lr= hparams.train.lr,
                               initial_lr= hparams.train.initial_lr,
