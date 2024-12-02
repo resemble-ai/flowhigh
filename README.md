@@ -55,7 +55,7 @@ CUDA_VISIBLE_DEVICES=0 python inference.py \
 | Parameter Name       | Description                                                                                      |
 |----------------------|--------------------------------------------------------------------------------------------------|
 | --time_step               | The number of steps for solving the ODE (Ordinary Differential Equation). <br>In our paper, we utilized a single-step approach (`time_step=1`). <br>While increasing `time_step` generally enhances the quality, in our case, the improvement was not significantly noticeable.|
-| --ode_method       | Choose between `euler` or `midpoint`. <br>The `midpoint` method improves performance but doubles the NFEs (Number of Function Evaluations). <br>**Recommendation**: Despite the increase in NFE, we recommend using the midpoint method for better performance. <br>Note: The choice of `ode_method` is independent of the trainind settings.|
+| --ode_method       | Choose between `euler` or `midpoint`. <br>The `midpoint` method improves performance but doubles the NFEs (Number of Function Evaluations). <br>**Recommendation**: Despite the increase in NFE, we recommend using the `midpoint` method for better performance. <br>**Note**: The choice of `ode_method` is independent of the trainind settings.|
 | --cfm_method       | Sets the Conditional Probability Paths. <br>In our paper, we used the path `independent_cfm_adaptive`. <br>Other available options include `basic_cfm`(<https://arxiv.org/abs/2210.02747>) and `independent_cfm_constant`(<https://arxiv.org/abs/2302.00482>).|
 | --sigma  | Influences the path setting. <br>Ensure you use the same value for `sigma` as was used during training. |
 
