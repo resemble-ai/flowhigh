@@ -44,7 +44,7 @@ CUDA_VISIBLE_DEVICES=0 python train.py
 CUDA_VISIBLE_DEVICES=0 python inference.py \
     --input_path {downsampled_audio_path} --output_path {save_output_audio_path} \
     --target_sampling_rate 48000 --up_sampling_method scipy --architecture='transformer' \
-    --time_step 1 --ode_method='euler' --cfm_method='independent_cfm_adaptive' --sigma 0.0001 \
+    --time_step 1 --ode_method={ode_solver} --cfm_method={cfm_path} --sigma 0.0001 \
     --model_path {model_checkpoint_path} \
     --n_layers 2 --n_heads 16 --dim_head 64 \
     --n_mels 256 --f_max 24000 --n_fft 2048 --win_length 2048 --hop_length 480 \
@@ -55,7 +55,7 @@ CUDA_VISIBLE_DEVICES=0 python inference.py \
 | Parameter Name       | Description                                                                                      |
 |----------------------|--------------------------------------------------------------------------------------------------|
 | --time_step               | The number of steps for solving the ODE (Ordinary Differential Equation). <br>In our paper, we utilized a single-step approach (`time_step=1`). <br>While increasing `time_step` generally enhances the quality, in our case, the improvement was not significantly noticeable.|
-| --ode_method       | Choose between `euler` or `midpoint`. <br>The `midpoint` method improves performance but doubles the NFE (Number of Function Evaluations).|
+| --ode_method       | Choose between `euler` or `midpoint`. <br>The `midpoint` method improves performance but doubles the NFEs (Number of Function Evaluations). <br>**Recommendation**: Despite the increase in NFE, we recommend using the midpoint method for better performance. <br>Note: The choice of `ode_method` is independent of the trainind settings.|
 | --cfm_method       | Sets the Conditional Probability Paths. <br>In our paper, we used the path `independent_cfm_adaptive`. <br>Other available options include `basic_cfm`(<https://arxiv.org/abs/2210.02747>) and `independent_cfm_constant`(<https://arxiv.org/abs/2302.00482>).|
 | --sigma  | Influences the path setting. <br>Ensure you use the same value for `sigma` as was used during training. |
 
