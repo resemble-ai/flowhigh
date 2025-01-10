@@ -4,7 +4,7 @@
 
 <img src="./image1.jpg" align="center" width="300" height="300">
 
-## [Demo Page](https://jjunak-yun.github.io/FLowHigh) 
+## [Paper](https://arxiv.org/abs/2501.04926) [Demo Page](https://jjunak-yun.github.io/FLowHigh) 
 **Jun-Hak Yun, Seung-Bin Kim, Seong-Whan Lee**
 
 ## Clone our repository
