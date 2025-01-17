@@ -4,7 +4,7 @@
 
 <img src="./image1.jpg" align="center" width="300" height="300">
 
-## [Paper](https://arxiv.org/abs/2501.04926) | [Demo Page](https://jjunak-yun.github.io/FLowHigh) 
+## <a src="https://img.shields.io/badge/eess.AS-2501.04926-b31b1b?logo=arxiv&logoColor=red" href="https://arxiv.org/abs/2501.04926"> <img src="https://img.shields.io/badge/eess.AS-2501.04926-b31b1b?logo=arxiv&logoColor=red"></a>  [![Static Badge](https://img.shields.io/badge/Demos-FLowHigh-brightred?style=flat)](https://jjunak-yun.github.io/FLowHigh) 
 **Jun-Hak Yun, Seung-Bin Kim, Seong-Whan Lee**
 
 ## Clone our repository
