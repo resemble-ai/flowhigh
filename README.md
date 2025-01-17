@@ -19,7 +19,7 @@ pip install -r requirements.txt
 ```
 
 ## Data preparation
-* Download the [VCTK](https://datashare.ed.ac.uk/handle/10283/2651) dataset.
+* Download the [VCTK](https://datashare.ed.ac.uk/handle/10283/3443) dataset.
 * Remove speakers `p280` and `p315` from the dataset.
 * Create a `train` directory and a `test` directory, then split the dataset accordingly.
 * Update the `data_path` in the `configs/config.json` file with the path to your newly created `train` directory.
