@@ -5,17 +5,13 @@ from beartype.typing import Optional
 import torch
 from torch import nn
 import torch.nn.functional as F
-
 from einops import reduce, rearrange, repeat
+
+from .modules import exists, default
+from .pos_emb import LearnedSinusoidalPosEmb
 from .convnext import ConvNeXtBlock
-from .modules import (
-    LearnedSinusoidalPosEmb,
-    ConvPositionEmbed,
-    Transformer,
-    exists,
-    default,
-)
-from . import MelVoco
+from .transformer import Transformer, ConvPositionEmbed
+from .melvoco import MelVoco
 
 
 # tensor helpers
@@ -75,7 +71,7 @@ class FLowHigh(nn.Module):
         attn_flash = False,
         attn_qk_norm = True,
         use_gateloop_layers = False,
-        architecture = None,
+        architecture = "transformer",
     ):
         super().__init__()
         dim_in = default(dim_in, dim)

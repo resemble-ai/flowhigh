@@ -1,13 +1,5 @@
 import json
 import torch
-# import sys
-# import os
-# script_dir = os.path.dirname(os.path.abspath(__file__))
-# parent_dir = os.path.dirname(script_dir)
-# vocoder_module_path = os.path.join(parent_dir, 'vocoder')
-
-
-# sys.path.append(vocoder_module_path)
 
 from .models import BigVGAN
 from .env import AttrDict

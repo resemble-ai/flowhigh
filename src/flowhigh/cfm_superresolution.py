@@ -5,9 +5,7 @@ from pathlib import Path
 
 from beartype import beartype
 
-from einops import rearrange, repeat, reduce, pack, unpack
-import numpy
-from librosa.filters import mel as librosa_mel_fn
+from einops import rearrange, repeat
 import torch
 from torch import nn, Tensor
 from torch.nn import Module
@@ -17,33 +15,15 @@ from torchdiffeq import odeint
 import torchaudio.transforms as T
 from torchaudio.functional import resample
 
+from .models.modules import exists, default
+from .models.common import unpack_one, pack_one
+from .models import FLowHigh
 from .utils import sequence_mask
-
-from postprocessing import PostProcessing
-from models.modules import exists, default
-from models import FLowHigh
 
 
 LOGGER = logging.getLogger(__file__)
 logging.basicConfig(filename='model_debug.log', level=logging.INFO)
 
-
-# helper functions
-
-def divisible_by(num, den):
-    return (num % den) == 0
-
-def is_odd(n):
-    return not divisible_by(n, 2)
-
-def coin_flip():
-    return random() < 0.5
-
-def pack_one(t, pattern):
-    return pack([t], pattern)
-
-def unpack_one(t, ps, pattern):
-    return unpack(t, ps, pattern)[0]
 
 # mel helpers
 mel_basis = {}
@@ -257,6 +237,11 @@ class ConditionalFlowMatcherWrapper(Module):
             y0, _ = self.mel_replace_ops(y0_high, y0_low, cutoff_bins)
 
         t = torch.linspace(0, 1, time_steps + 1, device = self.device).cuda()
+#         breakpoint()
+# !import code; code.interact(local=vars())
+# with open("my.txt", "w") as fp:
+#     for k, v in self.state_dict().items():
+#         fp.write(f"{k}\t{list(v.shape)}\n")
         if not self.use_torchode:
 
             LOGGER.debug('sampling with torchdiffeq')

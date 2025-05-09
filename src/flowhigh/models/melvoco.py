@@ -9,21 +9,25 @@ from .bigvgan.init_vocoder import init_bigvgan
 from .modules import spectral_normalize_torch
 
 
+mel_basis = {}
+hann_window = {}
+
+
 class MelVoco(nn.Module):
     def __init__(
         self,
         *,
-        log = True,
-        n_mels = 256,
-        sampling_rate = 48000,
-        f_max = 24000,
-        f_min = 20,
-        n_fft = 2048,
-        win_length = 2048,
-        hop_length = 480,
-        vocoder = str,
-        vocoder_config = './vocoder_config.json',
-        vocoder_path = None
+        log=True,
+        n_mels=256,
+        sampling_rate=48000,
+        f_max=24000,
+        f_min=20,
+        n_fft=2048,
+        win_length=2048,
+        hop_length=480,
+        vocoder="bigvgan",
+        vocoder_config='./vocoder_config.json',
+        vocoder_path=None
     ):
         super().__init__()
         self.log = log
@@ -57,7 +61,13 @@ class MelVoco(nn.Module):
 
         global mel_basis, hann_window
         if self.f_max not in mel_basis:
-            mel = librosa_mel_fn(self.sampling_rate, self.n_fft, self.n_mels, self.f_min, self.f_max)
+            mel = librosa_mel_fn(
+                sr=self.sampling_rate,
+                n_fft=self.n_fft,
+                n_mels=self.n_mels,
+                fmin=self.f_min,
+                fmax=self.f_max,
+            )
             mel_basis[str(self.f_max)+'_'+str(audio.device)] = torch.from_numpy(mel).float().to(audio.device)
             hann_window[str(audio.device)] = torch.hann_window(self.win_length).to(audio.device)
 
