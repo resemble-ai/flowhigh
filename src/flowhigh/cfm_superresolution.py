@@ -237,11 +237,6 @@ class ConditionalFlowMatcherWrapper(Module):
             y0, _ = self.mel_replace_ops(y0_high, y0_low, cutoff_bins)
 
         t = torch.linspace(0, 1, time_steps + 1, device = self.device).cuda()
-#         breakpoint()
-# !import code; code.interact(local=vars())
-# with open("my.txt", "w") as fp:
-#     for k, v in self.state_dict().items():
-#         fp.write(f"{k}\t{list(v.shape)}\n")
         if not self.use_torchode:
 
             LOGGER.debug('sampling with torchdiffeq')

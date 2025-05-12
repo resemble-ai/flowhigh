@@ -52,11 +52,13 @@ class FlowHighSR(ConditionalFlowMatcherWrapper):
         target_sampling_rate=48000,
         timestep=1,
     ):
-        # breakpoint()
         if len(audio.shape) == 2:
             audio = audio.squeeze(0)
 
-        # Up sampling the input audio
+        if audio.max() > 1:
+            audio = audio / 32768.0
+
+        # Up sampling the input audio (in Numpy)
         if self.upsampling_method =='scipy':
             # audio, sr = librosa.load(wav_file, sr=None, mono=True)
             cond = scipy.signal.resample_poly(audio, target_sampling_rate, sr)
@@ -73,8 +75,13 @@ class FlowHighSR(ConditionalFlowMatcherWrapper):
                 cond = torch.tensor(cond).unsqueeze(0)
             cond = cond.to(torch.device('cuda' if torch.cuda.is_available() else 'cpu')) # [1, T]
 
-        # reconstruct high resolution sample
+        # Audio must be in torch.Tensor from now on
+        if isinstance(cond, np.ndarray):
+            cond = torch.from_numpy(cond)
 
+        cond = cond.float().to(self.device)
+
+        # reconstruct high resolution sample
         if self.cfm_method == 'basic_cfm':
             HR_audio = self.sample(cond = cond, time_steps = timestep, cfm_method = self.cfm_method)
         elif self.cfm_method == 'independent_cfm_adaptive':
@@ -124,6 +131,3 @@ class FlowHighSR(ConditionalFlowMatcherWrapper):
         cfm_wrapper.load_state_dict(model_checkpoint['model']) # dict_keys(['model', 'optim', 'scheduler'])
         cfm_wrapper = cfm_wrapper.cuda().eval()
         return cfm_wrapper
-
-
-# if __name__ == "__main__":
