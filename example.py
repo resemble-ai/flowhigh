@@ -2,10 +2,11 @@ import torchaudio as ta
 from flowhigh import FlowHighSR
 
 TARGET_SR = 48000
-INPUT_FILE = "infer-00.wav"
-OUTPUT_FILE = "syn_out/infer-00-hr.wav"
+INPUT_FILE = "LOW-RES-AUDIO.wav"
+OUTPUT_FILE = "OUTPUT.wav"
 
-_wav, _sr = ta.load(INPUT_FILE)
 model = FlowHighSR.from_pretrained(device="cuda")
-wav_hr = model.generate(_wav, _sr, TARGET_SR)
+
+wav, sr_in = ta.load(INPUT_FILE)
+wav_hr = model.generate(wav, sr_in, TARGET_SR)
 ta.save(OUTPUT_FILE, wav_hr.cpu(), TARGET_SR)
