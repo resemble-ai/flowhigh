@@ -1,10 +1,35 @@
+# Installation
+`pip install git+https://github.com/resemble-ai/flowhigh.git@dev`
+
+
+# Usage
+```python
+import torchaudio as ta
+from flowhigh import FlowHighSR
+
+TARGET_SR = 48000
+INPUT_FILE = "LOW-RES-AUDIO.wav"
+OUTPUT_FILE = "OUTPUT.wav"
+
+model = FlowHighSR.from_pretrained(device="cuda")
+
+wav, sr_in = ta.load(INPUT_FILE)
+wav_hr = model.generate(wav, sr_in, TARGET_SR)
+ta.save(OUTPUT_FILE, wav_hr.cpu(), TARGET_SR)
+```
+See also `example.py`.
+
+# TODO
+- [ ] Training scripts are currently broken due to change of folder architectures.
+<hr/>
+
 # FLowHigh: Towards Efficient and High-Quality Audio Super-Resolution with Single-Step Flow Matching
 
 ## The official implementation of FLowHigh
 
 <img src="./image1.jpg" align="center" width="300" height="300">
 
-## <a src="https://img.shields.io/badge/eess.AS-2501.04926-b31b1b?logo=arxiv&logoColor=red" href="https://arxiv.org/abs/2501.04926"> <img src="https://img.shields.io/badge/eess.AS-2501.04926-b31b1b?logo=arxiv&logoColor=red"></a>  [![Static Badge](https://img.shields.io/badge/Demos-FLowHigh-brightred?style=flat)](https://jjunak-yun.github.io/FLowHigh) 
+## <a src="https://img.shields.io/badge/eess.AS-2501.04926-b31b1b?logo=arxiv&logoColor=red" href="https://arxiv.org/abs/2501.04926"> <img src="https://img.shields.io/badge/eess.AS-2501.04926-b31b1b?logo=arxiv&logoColor=red"></a>  [![Static Badge](https://img.shields.io/badge/Demos-FLowHigh-brightred?style=flat)](https://jjunak-yun.github.io/FLowHigh)
 **Jun-Hak Yun, Seung-Bin Kim, Seong-Whan Lee**
 
 ## Clone our repository
@@ -27,7 +52,7 @@ pip install -r requirements.txt
 ## Training
 * To adjust the training conditions, modify the `configs/config.json` file according to your preferences.
 ```
-CUDA_VISIBLE_DEVICES=0 python train.py 
+CUDA_VISIBLE_DEVICES=0 python train.py
 ```
 
 ## Pre-trained checkpoints
@@ -65,6 +90,7 @@ CUDA_VISIBLE_DEVICES=0 python inference.py \
 - [x] upload pre-trained checkpoint for independent_cfm_adaptive
 - [x] upload pre-trained checkpoint for basic_cfm
 - [ ] optimize the training speed
+
 
 ## References
 This implementation was developed based on the following repository:
