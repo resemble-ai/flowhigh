@@ -25,15 +25,15 @@ import random
 import torchaudio
 import numpy as np
 from torch.utils.tensorboard import SummaryWriter
-from utils import plot_tensor, save_plot_
 from einops import rearrange
 from scipy.signal import sosfiltfilt, cheby1, resample, resample_poly
 from scipy.io.wavfile import write
 import librosa
 import math
 import os
-import matplotlib.pyplot as plt
-from models.modules import exists
+# import matplotlib.pyplot as plt
+# from utils import plot_tensor, save_plot_
+from ..models.modules import exists
 
 
 # helpers
