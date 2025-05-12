@@ -2,7 +2,7 @@ from flowhigh import FlowHighSR
 import gradio as gr
 
 
-model = FlowHighSR.from_local("checkpoints", device="cuda")
+model = FlowHighSR.from_pretrained(device="cuda")
 
 
 def generate(audio, sr_out, timestep):
