@@ -8,10 +8,14 @@ import librosa
 import torch
 import torch.nn.functional as F
 import torchode
+from huggingface_hub import hf_hub_download
 
 from .models import FLowHigh, MelVoco
 from .cfm_superresolution import ConditionalFlowMatcherWrapper
 from .postprocessing import PostProcessing
+
+
+REPO_ID = "ResembleAI/FlowHigh"
 
 
 class FlowHighSR(ConditionalFlowMatcherWrapper):
@@ -106,8 +110,8 @@ class FlowHighSR(ConditionalFlowMatcherWrapper):
     def from_local(cls, ckpt_dir: Path, device) -> 'FlowHighSR':
         ckpt_dir = Path(ckpt_dir)
         voc = MelVoco(
-            vocoder_config=ckpt_dir / "bigvgan.json",
-            vocoder_path=ckpt_dir / "bigvgan.pt",
+            vocoder_config=ckpt_dir / "bigvgan_48khz_256band.json",
+            vocoder_path=ckpt_dir / "bigvgan_48khz_256band.pt",
         )
 
         SR_generator = FLowHigh(
@@ -125,9 +129,21 @@ class FlowHighSR(ConditionalFlowMatcherWrapper):
         )
         # checkpoint load
         model_checkpoint = torch.load(
-            ckpt_dir / "flowhigh.pt",
+            ckpt_dir / "FLowHigh_basic_400k.pt",
             map_location=device
         )
         cfm_wrapper.load_state_dict(model_checkpoint['model']) # dict_keys(['model', 'optim', 'scheduler'])
         cfm_wrapper = cfm_wrapper.cuda().eval()
         return cfm_wrapper
+
+    @classmethod
+    def from_pretrained(cls, device) -> 'FlowHighSR':
+        for fpath in [
+            "FLowHigh_basic_400k.json",
+            "bigvgan_48khz_256band.json",
+            "FLowHigh_basic_400k.pt",
+            "bigvgan_48khz_256band.pt",
+        ]:
+            local_path = hf_hub_download(repo_id=REPO_ID, filename=fpath)
+
+        return cls.from_local(Path(local_path).parent, device)
