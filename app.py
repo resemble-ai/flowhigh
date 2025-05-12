@@ -1,10 +1,6 @@
-# import numba, numpy, scipy, librosa, matplotlib, torch, torchaudio
 from flowhigh import FlowHighSR
 import gradio as gr
 
-TARGET_SR = 48000
-INPUT_FILE = "infer-00.wav"
-OUTPUT_FILE = "syn_out/infer-00-hr.wav"
 
 model = FlowHighSR.from_local("checkpoints", device="cuda")
 
@@ -16,7 +12,7 @@ def generate(audio, sr_out):
     wav = model.generate(
         audio, sr_in, sr_out
     )
-    return TARGET_SR, wav.detach().cpu().squeeze(0).numpy()
+    return sr_out, wav.detach().cpu().squeeze(0).numpy()
 
 
 demo = gr.Interface(
